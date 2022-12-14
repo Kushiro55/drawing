@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <title>Ball Drawing</title>
+    <style>
+      body {
+        background-color: black;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+
+    #snowball-area {
+  position: relative;
+  width: 500px;
+  height: 400px;
+  margin: 0; /* Remove the default left margin from the div element */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+      
+      #throw-button {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+      }
+      
+.snowball {
+  background-color: white;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  animation: throw-snowball 1s linear forwards; /* Animate the snowball across the screen */
+}
+
+/* Keyframes for the throw-snowball animation */
+@keyframes throw-snowball {
+  from {
+    /* Start the snowball at the position where it was clicked */
+    top: 0;
+    left: 0;
+  }
+  to {
+    /* End the snowball at a random position on the screen */
+    top: Math.random() * 100%;
+    left: Math.random() * 100%;
+  }
+}
+
+      .snowball::before {
+        content: " ";
+
+      }
+      
+     
+    </style>
+  </head>
+  <body>
+    <h1>Snowball Fight!</h1>
+    <div id="snowball-area">
+    </div>
+
+        <script>
+const body = document.querySelector("body");
+const snowballArea = document.getElementById("snowball-area");
+
+body.addEventListener("click", function(event) {
+  // Get the x- and y-coordinates of the click event
+  const x = event.pageX;
+  const y = event.pageY - snowballArea.offsetTop;
+  
+
+  
+  // Create a new snowball element and add it to the snowball area
+  const snowball = document.createElement("div");
+  snowball.classList.add("snowball");
+  snowball.style.top = y + "px";
+  snowball.style.left = x + "px";
+  snowballArea.appendChild(snowball);
+  
+  // Animate the snowball across the screen using requestAnimationFrame
+  let startTime = null;
+  const duration = 1000; /* 1 second */
+  
+  const animate = function(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const progress = timestamp - startTime;
+    
+    
+    
+    snowball.style.top = y + "px";
+    snowball.style.left = x + "px";
+    
+    if (progress < duration) {
+      requestAnimationFrame(animate);
+    }
+  };
+  requestAnimationFrame(animate);
+});
+
+
+
+    </script>
+  </body>
+</html>
